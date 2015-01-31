@@ -22,10 +22,6 @@ class Creature
 		end
 	end
 
-	def hp()
-		return @hp
-	end
-
 	def sethp(arg, key)
 		if key == @key then
 			@hp = arg
@@ -80,6 +76,15 @@ class Creature
 			goDirection(@goTo[1], @goTo[2], @goTo[3])
 		end
 	end
+
+
+	attr_accessor :hp
+	attr_accessor :atkbns
+	attr_accessor :speed
+	attr_accessor :type
+	attr_accessor :x
+	attr_accessor :y
+	attr_accessor :maxhp
 end
 end
 end
