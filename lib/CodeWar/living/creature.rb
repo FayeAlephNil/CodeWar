@@ -78,13 +78,13 @@ class Creature
 	end
 
 
-	attr_accessor :hp
-	attr_accessor :atkbns
-	attr_accessor :speed
-	attr_accessor :type
-	attr_accessor :x
-	attr_accessor :y
-	attr_accessor :maxhp
+	attr_reader :hp
+	attr_reader :atkbns
+	attr_reader :speed
+	attr_reader :type
+	attr_reader :x
+	attr_reader :y
+	attr_reader :maxhp
 end
 end
 end
