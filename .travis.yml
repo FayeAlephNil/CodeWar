@@ -3,3 +3,7 @@ rvm:
   - 2.2.0
   - 2.1.5
 script: ruby -e 'require("./codewar.rb")'
+notifications:
+  email:
+    - trajingPlaysGames@gmail.com
+  irc: irc.esper.net#trajingcode
