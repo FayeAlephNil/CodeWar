@@ -13,3 +13,5 @@ An example fight:
 => true
 The error has been defeated!
 ```
+###Build
+[![Build Status](https://travis-ci.org/PhoenixTeamMC/CodeWar.svg?branch=master)](https://travis-ci.org/PhoenixTeamMC/CodeWar)
