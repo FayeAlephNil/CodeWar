@@ -1,7 +1,8 @@
+Dir['../util/*.rb'].each {|file| require file }
 module CodeWar
 module Living
 class Creature
-	def initialize(hp, atk, speed, type, key, x, y)
+	def initialize(hp, atk, speed, type, key, x = 0, y = 0, velocity = CodeWar::Util::Velocity.new())
 		@hp = hp
 		@maxhp = hp
 		@atkbns = atk
@@ -10,7 +11,7 @@ class Creature
 		@key = key
 		@x = x
 		@y = y
-		@goToToggle = [false, 0, 0, 0];
+		@goTo = [false, @x, @y]
 	end
 
 	def attack(obj)
@@ -41,39 +42,44 @@ class Creature
 	end
 
 	def goTo(x, y, speed = @speed)
-		@goTo = [true, x, y, speed]
-	end
-
-	def goDirection(x, y, speed)
+		@velocity.speed = speed
 		xDiff = x - @x
 		yDiff = y - @y
-
-		toX = @x + speed
-		toY = @y + speed
-
-		if (xDiff == 0)
-			toX = @x
+		if xDiff < 0
+			@velocity.directions[0] = CodeWar::Util::LEFT
+		elsif xDiff > 0
+			@velocity.directions[0] = CodeWar::Util::RIGHT
 		end
 
-		if (xDiff < 0)
-			toX *= -1
+		if yDiff < 0
+			@velocity.directions[0] = CodeWar::Util::UP
+		elsif yDiff > 0
+			@velocity.directions[0] = CodeWar::Util::DOWN
+		end
+	end
+
+	def useVelocity(velocity = @velocity)
+		if velocity.directions[0] == CodeWar::Util::RIGHT
+			@x += velocity.speed
+		elsif velocity.directions[0] == CodeWar::Util::LEFT
+			@x -= velocity.speed
 		end
 
-		if (yDiff == 0)
-			toY = @y
+		if velocity.directions[1] == CodeWar::Util::UP
+			@y += velocity.speed
+		elsif velocity.directions[1] == CodeWar::Util::DOWN
+			@y -= velocity.speed
 		end
-
-		if (yDiff < 0)
-			toX *= -1
-		end
-
-		go(toX, toY);
-
 	end
 
 	def tick(time)
-		if @goTo[0]
-			goDirection(@goTo[1], @goTo[2], @goTo[3])
+		if @goTo[1] == @x && @goTo[2] == @y
+			@goTo[0] = false
+		end
+
+		useVelocity()
+		if !@goTo[0]
+			@velocity = CodeWar::Util::Velocity.new()
 		end
 	end
 
@@ -85,6 +91,7 @@ class Creature
 	attr_reader :x
 	attr_reader :y
 	attr_reader :maxhp
+	attr_reader :velocity
 end
 end
 end
