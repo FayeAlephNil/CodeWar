@@ -1,8 +1,12 @@
-require './direction.rb'
 module CodeWar
   module Util
+    NIL_DIRECTION = -1
+    UP = 0
+    RIGHT = 1
+    DOWN = 2
+    LEFT = 3
     class Velocity
-      def initialize(speed = 0, xDirection = CodeWar::Util::NIL_DIRECTION, yDirection = CodeWar::Util::NIL_DIRECTION)
+      def initialize(speed = 0, xDirection = $NIL_DIRECTION, yDirection = $NIL_DIRECTION)
         @speed = speed
         @directions = [xDirection, yDirection]
       end

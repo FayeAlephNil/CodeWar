@@ -1,8 +1,8 @@
-Dir['../util/*.rb'].each {|file| require file }
+require_relative '../util/veclocity'
 module CodeWar
 	module Living
 		class Creature
-			def initialize(hp, atk, speed, type, key, x = 0, y = 0, velocity = CodeWar::Util::Velocity.new())
+			def initialize(hp, atk, speed, type, key, x = 0, y = 0, velocity = CodeWar::Util::Velocity.new)
 				@hp = hp
 				@maxhp = hp
 				@atkbns = atk
@@ -12,6 +12,7 @@ module CodeWar
 				@x = x
 				@y = y
 				@goTo = [false, @x, @y]
+				@velocity = velocity
 			end
 
 			def attack(obj)
@@ -41,7 +42,7 @@ module CodeWar
 				@y = y
 			end
 
-			def goTo(x, y, speed = @speed)
+			def go_to(x, y, speed = @speed)
 				@velocity.speed = speed
 				xDiff = x - @x
 				yDiff = y - @y
@@ -72,14 +73,14 @@ module CodeWar
 				end
 			end
 
-			def tick(time)
+			def tick(time = 0.1)
 				if @goTo[1] == @x && @goTo[2] == @y
 					@goTo[0] = false
 				end
 
 				useVelocity()
 				if !@goTo[0]
-					@velocity = CodeWar::Util::Velocity.new()
+					@velocity = CodeWar::Util::Velocity.new # STRIKING YOU DON'T NEED THE PARENTHESES
 				end
 			end
 
