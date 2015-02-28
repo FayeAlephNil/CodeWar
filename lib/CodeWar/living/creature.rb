@@ -53,9 +53,9 @@ module CodeWar
 				end
 
 				if yDiff < 0
-					@velocity.directions[0] = CodeWar::Util::UP
+					@velocity.directions[1] = CodeWar::Util::UP
 				elsif yDiff > 0
-					@velocity.directions[0] = CodeWar::Util::DOWN
+					@velocity.directions[1] = CodeWar::Util::DOWN
 				end
 			end
 
