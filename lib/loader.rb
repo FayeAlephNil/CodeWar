@@ -1,0 +1,5 @@
+require_relative "CodeWar/util/velocity"
+require_relative "CodeWar/living/self"
+require_relative "CodeWar/living/player"
+require_relative "CodeWar/living/creature"
+require_relative "CodeWar/living/enemy"

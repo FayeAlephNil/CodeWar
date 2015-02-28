@@ -1,7 +1,8 @@
+require_relative 'creature'
 module CodeWar
   module Living
-    class Player
-      def initialize()
+    class Player < Creature
+      def placeholder
         return 'placeholder'
       end
     end

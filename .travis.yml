@@ -6,6 +6,6 @@ script: ruby -e 'require("./codewar.rb")'
 notifications:
   email:
     - trajingPlaysGames@gmail.com
-  irc: 
+  irc:
     - irc.esper.net#trajingcode
     - irc.esper.net#Strikingwolf
