@@ -1,4 +1,4 @@
-require_relative '../util/veclocity'
+require_relative '../util/velocity'
 module CodeWar
 	module Living
 		class Creature
@@ -43,7 +43,10 @@ module CodeWar
 			end
 
 			def go_to(x, y, speed = @speed)
-				@velocity.speed = speed
+				@velocity.speed = if x < speed || y < speed then y < x ? y : x else speed end
+				@goTo[1] = x
+				@goTo[2] = y
+
 				xDiff = x - @x
 				yDiff = y - @y
 				if xDiff < 0
@@ -52,14 +55,17 @@ module CodeWar
 					@velocity.directions[0] = CodeWar::Util::RIGHT
 				end
 
-				if yDiff < 0
+				if yDiff > 0
 					@velocity.directions[1] = CodeWar::Util::UP
-				elsif yDiff > 0
+				elsif yDiff < 0
 					@velocity.directions[1] = CodeWar::Util::DOWN
 				end
 			end
 
 			def useVelocity(velocity = @velocity)
+				if @x - @goTo[1] > 0 then @velocity.speed = @goTo[1] end
+				if @y - @goTo[2] > 0 then @velocity.speed = @goTo[2] end
+
 				if velocity.directions[0] == CodeWar::Util::RIGHT
 					@x += velocity.speed
 				elsif velocity.directions[0] == CodeWar::Util::LEFT
@@ -74,11 +80,11 @@ module CodeWar
 			end
 
 			def tick(time = 0.1)
+				useVelocity()
 				if @goTo[1] == @x && @goTo[2] == @y
 					@goTo[0] = false
 				end
 
-				useVelocity()
 				if !@goTo[0]
 					@velocity = CodeWar::Util::Velocity.new # STRIKING YOU DON'T NEED THE PARENTHESES
 				end
