@@ -51,21 +51,22 @@ module CodeWar
 				yDiff = y - @y
 				if xDiff < 0
 					@velocity.directions[0] = CodeWar::Util::LEFT
+					if @x - @goTo[1] < 0 then @velocity.speed = @goTo[1] * -1 end
 				elsif xDiff > 0
 					@velocity.directions[0] = CodeWar::Util::RIGHT
+					if @x - @goTo[1] > 0 then @velocity.speed = @goTo[1] end
 				end
 
 				if yDiff > 0
 					@velocity.directions[1] = CodeWar::Util::UP
+					if @y - @goTo[2] > 0 then @velocity.speed = @goTo[2] end
 				elsif yDiff < 0
 					@velocity.directions[1] = CodeWar::Util::DOWN
+					if @y - @goTo[2] < 0 then @velocity.speed = @goTo[2] end
 				end
 			end
 
 			def useVelocity(velocity = @velocity)
-				if @x - @goTo[1] > 0 then @velocity.speed = @goTo[1] end
-				if @y - @goTo[2] > 0 then @velocity.speed = @goTo[2] end
-
 				if velocity.directions[0] == CodeWar::Util::RIGHT
 					@x += velocity.speed
 				elsif velocity.directions[0] == CodeWar::Util::LEFT
