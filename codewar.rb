@@ -1,6 +1,6 @@
 require_relative 'lib/loader'
 creature = CodeWar::Living::Creature.new(10, 10, 10, 'tester', 'blarghwaffl')
-creature.go_to(1, 2)
+creature.go_to(1, 1)
 p creature.velocity
 creature.tick
 p creature.velocity
@@ -13,6 +13,9 @@ if creature.x != 1 or creature.y != 1
   raise "GoTo does not work with same x/y values"
 end
 
+creature.go_to(1, 2)
+
+creature.tick
 creature.tick
 p creature.velocity
 creature.tick

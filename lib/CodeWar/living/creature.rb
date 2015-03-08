@@ -43,51 +43,18 @@ module CodeWar
 			end
 
 			def go_to(x, y, speed = @speed)
-				@velocity.speed = if x < speed || y < speed then y < x ? y : x else speed end
+				@goTo[0] = true
 				@goTo[1] = x
 				@goTo[2] = y
-
-				xDiff = x - @x
-				yDiff = y - @y
-				if xDiff < 0
-					@velocity.directions[0] = CodeWar::Util::LEFT
-					if @x - @goTo[1] < 0 then @velocity.speed = @goTo[1] * -1 end
-				elsif xDiff > 0
-					@velocity.directions[0] = CodeWar::Util::RIGHT
-					if @x - @goTo[1] > 0 then @velocity.speed = @goTo[1] end
-				end
-
-				if yDiff > 0
-					@velocity.directions[1] = CodeWar::Util::UP
-					if @y - @goTo[2] > 0 then @velocity.speed = @goTo[2] end
-				elsif yDiff < 0
-					@velocity.directions[1] = CodeWar::Util::DOWN
-					if @y - @goTo[2] < 0 then @velocity.speed = @goTo[2] end
-				end
-			end
-
-			def useVelocity(velocity = @velocity)
-				if velocity.directions[0] == CodeWar::Util::RIGHT
-					@x += velocity.speed
-				elsif velocity.directions[0] == CodeWar::Util::LEFT
-					@x -= velocity.speed
-				end
-
-				if velocity.directions[1] == CodeWar::Util::UP
-					@y += velocity.speed
-				elsif velocity.directions[1] == CodeWar::Util::DOWN
-					@y -= velocity.speed
-				end
 			end
 
 			def tick(time = 0.1)
-				useVelocity()
-				if @goTo[1] == @x && @goTo[2] == @y
-					@goTo[0] = false
-				end
-
-				if !@goTo[0]
-					@velocity = CodeWar::Util::Velocity.new # STRIKING YOU DON'T NEED THE PARENTHESES
+				x_distance = if @goTo[1] >= 0 then @goTo[1] - @x else @x - @goTo[1] end
+				y_distance = if @goTo[2] >= 0 then @goTo[2] - @y else @y - @goTo[2] end
+				distance = Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+				if distance != 0 then
+					@x += x_distance * if @speed > x_distance then x_distance else @speed end
+					@y += y_distance * if @speed > y_distance then y_distance else @speed end
 				end
 			end
 
