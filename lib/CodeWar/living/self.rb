@@ -1,7 +1,7 @@
 require_relative 'player'
 module CodeWar
   module Living
-    class Self
+    class Self < Player
       def placeholder
         return 'placeholder'
       end
